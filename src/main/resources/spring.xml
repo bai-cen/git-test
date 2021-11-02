@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <context:annotation-config></context:annotation-config>
+    <bean id="userDao" class="com.yjxxt.dao.UserDao"/>
+    <bean id="userService" class="com.yjxxt.service.UserService" >
+<!--        <property name="userDao" ref="userDao"></property>-->
+        <constructor-arg name="userDao" ref="userDao"></constructor-arg>
+    </bean>
+
+    <bean id="uId" class="com.yjxxt.bean.User" scope="prototype">
+        <property name="uId" value="10"></property>
+    </bean>
+
+    <bean id="roleService" class="com.yjxxt.service.RoleService">
+        <constructor-arg name="accountService" ref="accountService"></constructor-arg>
+    </bean>
+    <bean id="accountService" class="com.yjxxt.service.AccountService">
+        <constructor-arg name="roleService" ref="roleService"></constructor-arg>
+    </bean>
+</beans>
